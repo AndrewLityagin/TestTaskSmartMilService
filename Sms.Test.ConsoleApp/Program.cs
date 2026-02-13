@@ -11,7 +11,6 @@ using Sms.Test.Service.DTO;
 using Serilog;
 
 var host = Host.CreateDefaultBuilder(args)
-    .UseSerilog()
     .ConfigureAppConfiguration((context, config) =>
     {
         config.SetBasePath(Directory.GetCurrentDirectory());
@@ -20,11 +19,10 @@ var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
         var config = context.Configuration;
-        
-        services.AddHttpClient<SmsTestHttpServices>(client =>
+       /* services.AddHttpClient<IOrderService, SmsTestHttpServices>(client =>
         {
             var httpUrl = config["Sms:HttpUrl"];
-            
+
             if(string.IsNullOrEmpty(httpUrl))
                 throw new InvalidProgramException("Invalid configuration: HttpUrl");
             
@@ -42,7 +40,7 @@ var host = Host.CreateDefaultBuilder(args)
 
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
-        });
+        });*/
         
         var grpcUrl = config["Sms:GrpcUrl"];
             
@@ -59,12 +57,14 @@ var host = Host.CreateDefaultBuilder(args)
          * Согласно Заданию 1 Часть 2  нужно оставить активной реализацию через gRPC
          * Поэтому в DI добавил реализацию IOrderService как SmsTestGrpcService
          */
-        services.AddScoped<IOrderService,SmsTestGrpcService>();
+        services.AddScoped<IOrderService, SmsTestGrpcService>();
         
         
         var connectionString = config.GetConnectionString("DefaultConnection");
+
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new InvalidProgramException("Invalid configuration: ConnectionStrings:DefaultConnection");
+
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(connectionString));
 
@@ -79,6 +79,7 @@ var host = Host.CreateDefaultBuilder(args)
             .CreateLogger();
         
     })
+    .UseSerilog()
     .Build();
 
 
@@ -100,8 +101,13 @@ try
     var orderService =  scope.ServiceProvider.GetRequiredService<IOrderService>();
     //2-3
     var menuItems = (await orderService.GetMenu(true)).ToArray();
-    db.MenuItems.AddRange(menuItems);
-    db.SaveChanges();
+    try{
+        db.MenuItems.AddRange(menuItems);
+        db.SaveChanges();
+    }catch(Exception ex)
+    {
+        logger.LogError("Submain error:" + ex.Message);
+    }
     logger.LogInformation($"Название – Код (артикул) – Цена за единицу");
     foreach (var item in menuItems)
         logger.LogInformation(item.ToString());
@@ -120,7 +126,7 @@ try
             orderItems = [];
             logger.LogError("Incorrect input. Please try one more time!");
         }
-    } while (attempts > 5);
+    } while (attempts < 5);
     
     if (orderItems.Length == 0)
         throw new InvalidProgramException("Incorrect input. All attempts are used");
@@ -139,7 +145,7 @@ try
 }
 catch (Exception ex)
 {
-    logger.LogError(ex.Message);
+    logger.LogError("Main error:" + ex.Message);
     Environment.Exit(0);
 }
 

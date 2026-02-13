@@ -25,14 +25,14 @@ public class SmsTestHttpServices: IOrderService
         
         var rawResponse =  await _httpClient.PostAsJsonAsync("",request);
         var getMenuResponse = await rawResponse.Content.ReadFromJsonAsync<GetMenuResponseDto>();
-        
+
         if (getMenuResponse == null)
             return Array.Empty<MenuItemDto>();
         
         if (!getMenuResponse.Success)
             throw new InvalidOperationException(getMenuResponse.ErrorMessage);
         
-        return getMenuResponse.MenuItems;
+        return getMenuResponse.Data.MenuItems;
     }
     
     public async Task<bool> SendOrder(OrderDto orderDto)
