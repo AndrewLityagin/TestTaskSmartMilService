@@ -1,0 +1,6 @@
+@Sms.Test.WebAPI_HostAddress = https://localhost:7243
+
+GET {{Sms.Test.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

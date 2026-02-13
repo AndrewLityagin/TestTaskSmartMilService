@@ -1,7 +1,7 @@
-﻿syntax = "proto3";
+syntax = "proto3";
 import "google/protobuf/wrappers.proto";
 package sms.test;
-option csharp_namespace = "Sms.Test.Service";
+option csharp_namespace = "Sms.Test.WebAPI";
 message MenuItem {
   string id = 1;
   string article = 2;
