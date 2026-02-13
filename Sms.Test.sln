@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sms.Test.ConsoleApp", "Sms.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sms.Test.DesktopApp", "Sms.Test.DesktopApp\Sms.Test.DesktopApp.csproj", "{1049DB68-A2C0-4B29-B229-8F3A6E1C7048}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sms.Test.WebApi", "Sms.Test.WebApi\Sms.Test.WebApi.csproj", "{5AF7401C-25A5-4A7F-91E2-FD67B996906F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{1049DB68-A2C0-4B29-B229-8F3A6E1C7048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1049DB68-A2C0-4B29-B229-8F3A6E1C7048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1049DB68-A2C0-4B29-B229-8F3A6E1C7048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF7401C-25A5-4A7F-91E2-FD67B996906F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF7401C-25A5-4A7F-91E2-FD67B996906F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF7401C-25A5-4A7F-91E2-FD67B996906F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF7401C-25A5-4A7F-91E2-FD67B996906F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
