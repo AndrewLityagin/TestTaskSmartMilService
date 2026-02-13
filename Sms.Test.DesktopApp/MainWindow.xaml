@@ -1,0 +1,80 @@
+﻿<Window x:Class="Sms.Test.DesktopApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sms.Test.DesktopApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+        <Border Background="White"
+                CornerRadius="25"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1">
+                <Grid Margin="20px">
+                        <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid  Height="45px" VerticalAlignment="Center" Row="0">
+                                <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock 
+                                            VerticalAlignment="Center"
+                                            FontSize="16px"
+                                            FontFamily="Segoe UI"
+                                            FontWeight="Bold"
+                                            Text = "Тестовое WPF - приложение для SmartMealService" Grid.Column="0"/>
+                      
+                                <StackPanel Orientation="Horizontal"  Grid.Column="1">
+                                        <Button Margin="10px" Name="btnHide" Click="HideClick" Background="Transparent" BorderBrush="Transparent">
+                                                <TextBlock  Text="&#xE921;"
+                                                            FontWeight="UltraBold"
+                                                            FontSize="20px"
+                                                            FontFamily="Segoe MDL2 Assets"/>
+                                        </Button>
+                                        <Button Margin="10px" Name="btnClose" Click="CloseClick" Background="Transparent"  BorderBrush="Transparent">
+                                                <TextBlock Text="&#xE8BB;"
+                                                           FontWeight="UltraBold"
+                                                           FontSize="20px"
+                                                           FontFamily="Segoe MDL2 Assets"/>
+                                        </Button>
+                                </StackPanel>
+                        </Grid>
+                        <Border  Grid.Row="1" CornerRadius="20"
+                                 BorderBrush="Black"
+                                 BorderThickness="2"
+                                 Background="White"
+                                 Padding="5">
+                                <DataGrid ItemsSource="{Binding Variables}"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="False"
+                                          ColumnWidth="*"
+                                          GridLinesVisibility="All"
+                                          Background="Transparent"
+                                          BorderThickness="0"
+                                          CanUserAddRows="False"
+                                          CanUserDeleteRows="False">
+                                        <DataGrid.ColumnHeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                                        <Setter Property="BorderBrush" Value="Black"/>
+                                                </Style>
+                                        </DataGrid.ColumnHeaderStyle>
+                                        <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Поле"
+                                                                    Binding="{Binding Field}"
+                                                                    IsReadOnly="True"/>
+                                                <DataGridTextColumn Header="Значение"
+                                                                    Binding="{Binding Value}"/>
+                                        </DataGrid.Columns>
+                                </DataGrid>
+                        </Border>
+                </Grid>
+        </Border>
+</Window>
